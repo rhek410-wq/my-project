@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Flex 예제 01</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        .container {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            height: 150px;
+            background-color: #eee;
+            border: 2px solid #333;
+        }
+
+        .item {
+            width: 80px;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+            background-color: tomato;
+        }
+
+        .item:nth-child(2) { background-color: orange; }
+        .item:nth-child(3) { background-color: seagreen; }
+
+        /* 1. 주축 방향 */
+        .row-reverse { flex-direction: row-reverse; }
+        .column { flex-direction: column; height: auto; }
+
+        /* 2. 주축 정렬 */
+        .justify-center { justify-content: center; }
+        .space-between { justify-content: space-between; }
+
+        /* 3. 교차축 정렬 */
+        .align-center { align-items: center; }
+
+        /* 4. 가운데 정렬 */
+        .center {
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 5. flex-grow */
+        .grow .item:nth-child(2) { flex-grow: 1; }
+    </style>
+</head>
+<body>
+    <h1>CSS Flexbox 예제</h1>
+
+    <h2>1. flex-direction: row (기본)</h2>
+    <div class="container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+
+    <h2>2. flex-direction: row-reverse</h2>
+    <div class="container row-reverse">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+
+    <h2>3. flex-direction: column</h2>
+    <div class="container column">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+
+    <h2>4. justify-content: center</h2>
+    <div class="container justify-center">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+
+    <h2>5. justify-content: space-between</h2>
+    <div class="container space-between">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+
+    <h2>6. align-items: center</h2>
+    <div class="container align-center">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+
+    <h2>7. 가로·세로 가운데 정렬</h2>
+    <div class="container center">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+
+    <h2>8. flex-grow: 1 (2번 아이템)</h2>
+    <div class="container grow">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+</body>
+</html>
