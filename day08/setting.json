@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git:*)",
+      "Bash(gh:*)",
+      "mcp__github"
+    ],
+    "ask": [
+        "mcp__github_delete_repository"
+    ]
+  }
+}
