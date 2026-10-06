@@ -1,0 +1,136 @@
+/* 1~45 번호판 */
+.number-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 6px;
+}
+
+.number-btn {
+    aspect-ratio: 1;
+    padding: 0;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    background-color: #fff;
+    font-size: 14px;
+}
+
+.number-btn:hover {
+    border-color: #adb5bd;
+}
+
+.number-btn.picked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: #fff;
+    font-weight: bold;
+}
+
+.number-btn.excluded {
+    background-color: #f8d7da;
+    border-color: #f1aeb5;
+    color: var(--bs-danger);
+    text-decoration: line-through;
+}
+
+/* 로또 공 */
+.balls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.ball {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.ball-1 { background-color: #fbc400; }  /* 1~10 */
+.ball-2 { background-color: #69c8f2; }  /* 11~20 */
+.ball-3 { background-color: #ff7272; }  /* 21~30 */
+.ball-4 { background-color: #aaaaaa; }  /* 31~40 */
+.ball-5 { background-color: #b0d840; }  /* 41~45 */
+
+.ball-empty {
+    background-color: #e9ecef;
+    color: #adb5bd;
+}
+
+/* 수동 게임에서 온 고정 번호 */
+.ball.fixed {
+    outline: 3px solid var(--bs-primary);
+    outline-offset: 2px;
+}
+
+.bonus-plus {
+    color: #adb5bd;
+    font-weight: bold;
+}
+
+/* 게임 한 줄 */
+.game-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.game-label {
+    width: 16px;
+    font-weight: bold;
+}
+
+.game-type {
+    min-width: 48px;
+}
+
+.empty-message {
+    color: #6c757d;
+    text-align: center;
+    padding: 16px 0;
+}
+
+@media (max-width: 575.98px) {
+    .ball {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    /* 게임 줄은 공 6개 + 버튼 2개가 한 줄에 들어가도록 더 작게 */
+    .game-row {
+        gap: 4px;
+    }
+
+    .game-row .balls {
+        gap: 3px;
+        flex-wrap: nowrap;
+    }
+
+    .game-row .ball {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+    }
+
+    .game-row .ball.fixed {
+        outline-width: 2px;
+        outline-offset: 1px;
+    }
+
+    .game-type {
+        min-width: 40px;
+    }
+
+    .game-row .btn-sm {
+        padding: 0.2rem 0.35rem;
+    }
+}

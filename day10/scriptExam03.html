@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number" id="num01"> +
+    <input type="number" id="num02"> =
+    <span id="result">?</span><br>
+    <button type="button" onclick="add();">결과</button>
+</body>
+<script>
+
+    function add() {
+        const num01 = Number(document.getElementById('num01').value);
+        const num02 = Number(document.getElementById('num02').value);
+        const result = num01 + num02 ;
+
+        const resultSpan = document.getElementById('result');
+
+        resultSpan.textContent = result;
+    }
+</script>
+</html>

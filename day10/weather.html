@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>날씨 대시보드</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CDN (대시보드 이미지용) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #fef9c3 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+            color: #334155;
+        }
+
+        .search-box {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 2rem;
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.12);
+        }
+
+        .search-box .form-select,
+        .search-box .btn {
+            border-radius: 50rem;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .btn-search {
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            border: none;
+            color: #fff;
+        }
+
+        .btn-search:hover {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: #fff;
+        }
+
+        .weather-card {
+            background: #ffffff;
+            border: none;
+            border-radius: 2rem;
+            box-shadow: 0 15px 40px rgba(14, 165, 233, 0.15);
+        }
+
+        .main-weather {
+            background: linear-gradient(135deg, #bae6fd, #e0f2fe);
+            border-radius: 1.5rem;
+        }
+
+        .main-weather img {
+            width: 110px;
+            height: 110px;
+        }
+
+        .main-temp {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #0369a1;
+        }
+
+        .stat-tile {
+            background: #f8fafc;
+            border-radius: 1.5rem;
+            height: 100%;
+            transition: transform 0.2s;
+        }
+
+        .stat-tile:hover {
+            transform: translateY(-4px);
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .icon-humidity { background: #dbeafe; color: #3b82f6; }
+        .icon-wind-deg { background: #dcfce7; color: #22c55e; }
+        .icon-wind-speed { background: #e0e7ff; color: #6366f1; }
+        .icon-max { background: #fee2e2; color: #ef4444; }
+        .icon-min { background: #cffafe; color: #06b6d4; }
+    </style>
+</head>
+
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+
+                <h1 class="text-center fw-bold mb-4" style="color:#0369a1;">
+                    <i class="bi bi-cloud-sun"></i> 날씨 대시보드
+                </h1>
+
+                <!-- 도시 선택 영역 -->
+                <div class="search-box p-4 mb-4">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-12 col-sm-8">
+                            <select id="citySelect" class="form-select">
+                                <option value="Seoul">서울</option>
+                                <option value="Busan">부산</option>
+                                <option value="Incheon">인천</option>
+                                <option value="Daegu">대구</option>
+                                <option value="Daejeon">대전</option>
+                                <option value="Gwangju">광주</option>
+                                <option value="Ulsan">울산</option>
+                                <option value="Suwon">수원</option>
+                                <option value="Jeonju">전주</option>
+                                <option value="Jeju City">제주</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-4 d-grid">
+                            <button type="button" id="searchBtn" class="btn btn-search fw-semibold" onclick="getWeather();">
+                                <i class="bi bi-search"></i> 날씨 검색
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 날씨 결과 카드 -->
+                <div id="result"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ▼ OpenWeather API Key 를 여기에 입력하세요.
+        const API_KEY = 'YOUR_API_KEY';
+
+        // 풍향 각도를 16방위로 변환
+        function toDirection(deg) {
+            const dirs = ['북', '북북동', '북동', '동북동', '동', '동남동', '남동', '남남동',
+                '남', '남남서', '남서', '서남서', '서', '서북서', '북서', '북북서'];
+            return dirs[Math.round(deg / 22.5) % 16];
+        }
+
+        function getWeather() {
+            const city = document.getElementById('citySelect').value;
+            const cityName = document.getElementById('citySelect').selectedOptions[0].text;
+            const result = document.getElementById('result');
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)},KR&appid=${API_KEY}&units=metric&lang=kr`;
+
+            result.innerHTML = `
+                <div class="text-center py-5">
+                    <div class="spinner-border text-info" role="status"></div>
+                </div>`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`날씨 정보를 가져오지 못했습니다. (${response.status})`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`;
+
+                    result.innerHTML = `
+                        <div class="card weather-card p-4">
+                            <div class="main-weather p-4 mb-4 text-center">
+                                <h2 class="fw-bold mb-0">${cityName}</h2>
+                                <img src="${icon}" alt="${data.weather[0].description}">
+                                <div class="main-temp">${Math.round(data.main.temp)}°C</div>
+                                <p class="fs-5 mb-0">${data.weather[0].description}</p>
+                            </div>
+
+                            <div class="row g-3 text-center">
+                                <div class="col-6 col-md-4">
+                                    <div class="stat-tile p-3">
+                                        <span class="stat-icon icon-humidity mb-2"><i class="bi bi-droplet-fill"></i></span>
+                                        <div class="text-secondary small">습도</div>
+                                        <div class="stat-value">${data.main.humidity}%</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-4">
+                                    <div class="stat-tile p-3">
+                                        <span class="stat-icon icon-wind-deg mb-2">
+                                            <i class="bi bi-arrow-up" style="display:inline-block; transform: rotate(${data.wind.deg + 180}deg);"></i>
+                                        </span>
+                                        <div class="text-secondary small">풍향</div>
+                                        <div class="stat-value">${toDirection(data.wind.deg)}</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-4">
+                                    <div class="stat-tile p-3">
+                                        <span class="stat-icon icon-wind-speed mb-2"><i class="bi bi-wind"></i></span>
+                                        <div class="text-secondary small">풍속</div>
+                                        <div class="stat-value">${data.wind.speed} m/s</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6">
+                                    <div class="stat-tile p-3">
+                                        <span class="stat-icon icon-max mb-2"><i class="bi bi-thermometer-sun"></i></span>
+                                        <div class="text-secondary small">최고 온도</div>
+                                        <div class="stat-value">${Math.round(data.main.temp_max)}°C</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="stat-tile p-3">
+                                        <span class="stat-icon icon-min mb-2"><i class="bi bi-thermometer-snow"></i></span>
+                                        <div class="text-secondary small">최저 온도</div>
+                                        <div class="stat-value">${Math.round(data.main.temp_min)}°C</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                })
+                .catch(error => {
+                    result.innerHTML = `
+                        <div class="alert alert-danger text-center rounded-pill">${error.message}</div>`;
+                });
+        }
+    </script>
+</body>
+
+</html>

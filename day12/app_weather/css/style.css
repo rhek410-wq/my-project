@@ -1,0 +1,152 @@
+/* 도시 검색: 둥근 입력칸 안에 돋보기 아이콘 */
+.city-search {
+    position: relative;
+    flex: 1 1 160px;
+    max-width: 300px;
+}
+
+.city-search .search-icon {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--bs-secondary-color);
+    font-size: 0.85rem;
+    pointer-events: none;
+}
+
+.city-search .form-control {
+    padding-left: 2.1rem;
+    background-color: var(--bs-tertiary-bg);
+    border-color: transparent;
+}
+
+.city-search .form-control:focus {
+    background-color: var(--bs-body-bg);
+    border-color: var(--bs-primary);
+}
+
+.search-results {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    min-width: 240px;
+    z-index: 1050;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+/* 대륙: 좁은 화면에서는 이 줄만 가로 스크롤 */
+.continent-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    max-width: 100%;
+}
+
+.continent-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.continent-tabs .nav-link {
+    white-space: nowrap;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.9rem;
+}
+
+.continent-tabs .nav-link:not(.active) {
+    color: var(--bs-secondary-color);
+}
+
+/* 나라 선택 */
+.country-select {
+    width: auto;
+    min-width: 200px;
+}
+
+/* 도시 카드 */
+.city-card {
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.city-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
+}
+
+.city-card.selected {
+    border-color: var(--bs-primary);
+    border-width: 2px;
+}
+
+.city-card .weather-icon {
+    width: 44px;
+    height: 44px;
+    margin: -6px 0 -6px -6px;
+}
+
+.city-temp {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* 상세 패널 + 지도: PC에서는 스크롤해도 따라옴 */
+@media (min-width: 992px) {
+    .side-panel {
+        position: sticky;
+        top: 1rem;
+    }
+}
+
+/* 지도 */
+.weather-map {
+    height: 280px;
+}
+
+@media (min-width: 992px) {
+    .weather-map {
+        height: 300px;
+    }
+}
+
+.detail-panel {
+    scroll-margin-top: 1rem;
+}
+
+.detail-panel .weather-icon-lg {
+    width: 80px;
+    height: 80px;
+    margin: -10px;
+}
+
+.detail-temp {
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.metric {
+    background: var(--bs-tertiary-bg);
+    border-radius: var(--bs-border-radius);
+    padding: 0.75rem;
+    height: 100%;
+}
+
+.metric-label {
+    font-size: 0.8rem;
+    color: var(--bs-secondary-color);
+}
+
+.metric-value {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+/* 풍향 화살표 (회전 각도는 app.js에서 지정) */
+.wind-arrow {
+    display: inline-block;
+    transition: transform 0.3s;
+}
