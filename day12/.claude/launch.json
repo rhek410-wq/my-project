@@ -36,6 +36,15 @@
         "app_weather"
       ],
       "port": 8125
+    },
+    {
+      "name": "my-app02",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "cd /Users/kodayeon/Desktop/my-project/react-apps/my-app02 && BROWSER=none npm run dev"
+      ],
+      "port": 3000
     }
   ]
 }
