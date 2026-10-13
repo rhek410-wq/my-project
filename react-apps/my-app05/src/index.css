@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+/* 기본 테마(하늘·구름) + 둥근 글꼴
+   색은 모두 이 파일에서만 정한다. 다른 테마는 아래 [data-theme] 블록에서 같은 이름의 값을 덮어쓴다. */
+@theme {
+  --font-sans: "Gowun Dodum", ui-sans-serif, system-ui, sans-serif;
+  --font-cute: "Jua", "Gowun Dodum", sans-serif;
+
+  --color-point: #4aa8ff;        /* 주요 버튼·강조 (하늘색) */
+  --color-point-dark: #2f8ee6;   /* 강조 진하게 */
+  --color-point-light: #9fd0ff;  /* 안내 글자·placeholder */
+  --color-soft: #eef7ff;         /* 연한 바탕 */
+  --color-line: #d6ebff;         /* 테두리·구분선 */
+  --color-line-strong: #b5dbff;  /* 진한 테두리 */
+  --color-base: #f5fbff;         /* 페이지 배경 */
+  --color-ink: #34506b;          /* 기본 글자 (남색) */
+  --color-surface: #ffffff;      /* 카드·입력칸 바탕 */
+  --color-bg-top: #dff0ff;       /* 배경 그라데이션 위쪽 */
+  --color-on-point: #ffffff;     /* 포인트 버튼 글자 */
+  --color-on-mint: #34506b;      /* 민트 버튼 글자 */
+  --color-sun: #ffe58a;          /* 노란 포인트 (햇살) */
+  --color-mint: #a8ecd9;
+  --color-mint-dark: #7fdcc1;
+  --color-lavender: #d9d4ff;
+
+  /* 카드·버튼 아래 그림자 */
+  --color-shadow-card: #dcecfb;
+  --color-shadow-point: #2a7fd0;
+  --color-shadow-mint: #5fc4a8;
+  --color-shadow-danger: #f17c97;
+
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-wiggle: wiggle 2.5s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-6deg); }
+    50% { transform: rotate(6deg); }
+  }
+}
+
+/* ---------- 테마별 색 ---------- */
+:root[data-theme="pink"] {
+  --color-point: #ff7eb6;
+  --color-point-dark: #f0609e;
+  --color-point-light: #f9a8d4;
+  --color-soft: #fdf2f8;
+  --color-line: #fce7f3;
+  --color-line-strong: #fbcfe8;
+  --color-base: #fff8fb;
+  --color-ink: #5b4351;
+  --color-on-mint: #5b4351;
+  --color-sun: #ffd6c9;
+  --color-mint: #9be3cf;
+  --color-mint-dark: #6fcdb4;
+  --color-lavender: #d9ccff;
+  --color-bg-top: #ffe4f0;
+  --color-shadow-card: #fde2ef;
+  --color-shadow-point: #e0569a;
+  --color-shadow-mint: #5fbfa5;
+}
+
+:root[data-theme="forest"] {
+  --color-point: #6cc070;
+  --color-point-dark: #4fa356;
+  --color-point-light: #a7d8a0;
+  --color-soft: #f1f8ec;
+  --color-line: #dcedd2;
+  --color-line-strong: #c3e0b3;
+  --color-base: #fbfaf3;
+  --color-ink: #4a5a3c;
+  --color-on-mint: #4a5a3c;
+  --color-sun: #ffe08a;
+  --color-mint: #b8e6c9;
+  --color-mint-dark: #92d6ad;
+  --color-lavender: #e6dcff;
+  --color-bg-top: #e4f3d6;
+  --color-shadow-card: #e3eed8;
+  --color-shadow-point: #4a9a50;
+  --color-shadow-mint: #79c497;
+}
+
+:root[data-theme="night"] {
+  color-scheme: dark;
+  --color-point: #ffd166;
+  --color-point-dark: #ffe08f;
+  --color-point-light: #8c9cc8;
+  --color-soft: #26304f;
+  --color-line: #2f3a5e;
+  --color-line-strong: #3d4a75;
+  --color-base: #141a33;
+  --color-ink: #e6ebff;
+  --color-surface: #1d2542;
+  --color-bg-top: #0b1027;
+  --color-on-point: #2a2340;
+  --color-on-mint: #10302a;
+  --color-sun: #ffd166;
+  --color-mint: #5fd4b4;
+  --color-mint-dark: #48bfa0;
+  --color-lavender: #8f84d8;
+  --color-shadow-card: #0b1024;
+  --color-shadow-point: #c99a2e;
+  --color-shadow-mint: #2f9c80;
+  --color-shadow-danger: #b5506a;
+}
+/* 어두운 배경에서 배지 글자를 밝게 */
+:root[data-theme="night"] .text-violet-700 { color: #e2dcff; }
+:root[data-theme="night"] .text-emerald-700 { color: #c9f5e8; }
+:root[data-theme="night"] .text-orange-700 { color: #3a2a00; }
+:root[data-theme="night"] .alert-error { background: #3a1f2b; border-color: #6b3348; color: #ffb3c4; }
+
+body {
+  @apply bg-base text-ink;
+  /* 위는 하늘색, 아래로 갈수록 하얗게 + 작은 구름 점 */
+  background-image:
+    radial-gradient(var(--color-line) 1.5px, transparent 1.5px),
+    linear-gradient(180deg, var(--color-bg-top) 0%, var(--color-base) 420px);
+  background-size: 24px 24px, 100% 100%;
+  background-attachment: fixed;
+}
+
+@layer components {
+  .card {
+    @apply rounded-3xl border-2 border-line bg-surface p-6 shadow-[0_6px_0_var(--color-shadow-card)];
+  }
+  .page-title {
+    @apply font-cute text-2xl text-ink;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-1 rounded-full px-5 py-2 text-sm font-bold whitespace-nowrap transition
+      hover:-translate-y-0.5 active:translate-y-0.5 disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-sm {
+    @apply px-3 py-1 text-xs;
+  }
+  .btn-point {
+    @apply bg-point text-on-point shadow-[0_4px_0_var(--color-shadow-point)] hover:bg-point-dark;
+  }
+  .btn-mint {
+    @apply bg-mint text-on-mint shadow-[0_4px_0_var(--color-shadow-mint)] hover:bg-mint-dark;
+  }
+  .btn-ghost {
+    @apply border-2 border-line-strong bg-surface text-ink hover:bg-soft;
+  }
+  .btn-danger {
+    @apply bg-rose-300 text-white shadow-[0_4px_0_var(--color-shadow-danger)] hover:bg-rose-400;
+  }
+
+  .input {
+    @apply w-full rounded-2xl border-2 border-line bg-soft/40 px-4 py-2.5 outline-none transition
+      placeholder:text-point-light focus:border-point focus:bg-surface;
+  }
+  .label {
+    @apply text-sm font-bold text-ink/80;
+  }
+
+  .alert-error {
+    @apply rounded-2xl border-2 border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-500;
+  }
+  .badge {
+    @apply inline-block rounded-full px-2.5 py-0.5 text-xs font-bold;
+  }
+  .badge-admin {
+    @apply bg-lavender text-violet-700;
+  }
+  .badge-user {
+    @apply bg-mint/50 text-emerald-700;
+  }
+
+  .table-cute {
+    @apply w-full text-sm;
+  }
+  .table-cute thead {
+    @apply bg-soft font-cute text-base text-point-dark;
+  }
+  .table-cute th {
+    @apply px-3 py-3 font-normal;
+  }
+  .table-cute td {
+    @apply px-3 py-3;
+  }
+  .table-cute tbody tr {
+    @apply border-t-2 border-dashed border-line transition hover:bg-soft/60;
+  }
+}

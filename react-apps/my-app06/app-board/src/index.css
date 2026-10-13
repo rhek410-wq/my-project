@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+/* 심플·고급 테마: 아이보리 바탕 + 먹색 글자 + 옅은 골드 포인트, 모서리는 각지게.
+   색은 모두 이 파일에서만 정한다. 시스템이 다크 모드면 아래 @media 블록에서 같은 이름의 값을 덮어쓴다. */
+@theme {
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo",
+    "Noto Sans KR", sans-serif;
+  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+
+  --color-ink: #1c1a17;        /* 기본 글자 */
+  --color-muted: #7a746b;      /* 보조 글자 */
+  --color-line: #e6e1d8;       /* 테두리·구분선 */
+  --color-canvas: #fbf9f5;     /* 페이지 배경 (아이보리) */
+  --color-surface: #ffffff;    /* 카드·입력칸 바탕 */
+  --color-subtle: #f3efe8;     /* 표 머리·hover 바탕 */
+  --color-gold: #a8875a;       /* 포인트 (가격 할인·배지) */
+  --color-gold-soft: #efe6d6;
+  --color-primary: #1c1a17;    /* 주요 버튼 */
+  --color-primary-hover: #3b3731;
+  --color-on-primary: #fbf9f5;
+  --color-danger: #b42318;
+  --color-danger-soft: #fdf1ef;
+  --color-success: #3f6b4a;
+  --color-success-soft: #eff5f0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --color-ink: #efe9df;
+    --color-muted: #a59d90;
+    --color-line: #2e2a25;
+    --color-canvas: #12110f;
+    --color-surface: #1a1815;
+    --color-subtle: #24211d;
+    --color-gold: #cfae7d;
+    --color-gold-soft: #2c2519;
+    --color-primary: #efe9df;
+    --color-primary-hover: #d6cfc4;
+    --color-on-primary: #12110f;
+    --color-danger: #f0897d;
+    --color-danger-soft: #2a1613;
+    --color-success: #8fc39c;
+    --color-success-soft: #14211a;
+  }
+}
+
+body {
+  @apply bg-canvas text-ink antialiased;
+  word-break: keep-all;
+}
+
+@layer components {
+  /* 영문 대문자 + 넓은 자간: 메뉴·버튼·라벨 공통 */
+  .eyebrow {
+    @apply text-[11px] font-medium tracking-[0.22em] uppercase;
+  }
+  .display {
+    @apply font-serif font-normal tracking-wide;
+  }
+
+  .card {
+    @apply border border-line bg-surface p-6 sm:p-8;
+  }
+  .page-title {
+    @apply font-serif text-3xl font-normal tracking-wide;
+  }
+  .muted {
+    @apply text-muted;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 border px-6 py-3 text-xs font-medium tracking-[0.18em] uppercase whitespace-nowrap transition-colors
+      disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-sm {
+    @apply px-3 py-1.5 text-[10px];
+  }
+  .btn-primary {
+    @apply border-primary bg-primary text-on-primary hover:border-primary-hover hover:bg-primary-hover;
+  }
+  .btn-secondary {
+    @apply border-ink/80 bg-transparent text-ink hover:bg-ink hover:text-canvas;
+  }
+  .btn-danger {
+    @apply border-line bg-transparent text-danger hover:bg-danger-soft;
+  }
+  .link-underline {
+    @apply underline decoration-line underline-offset-4 transition-colors hover:decoration-ink;
+  }
+
+  .input {
+    @apply w-full border-0 border-b border-line bg-transparent px-0 py-2.5 text-sm outline-none transition-colors
+      placeholder:text-muted/70 focus:border-ink;
+  }
+  .input-box {
+    @apply w-full border border-line bg-surface px-3 py-2 text-sm outline-none transition-colors focus:border-ink;
+  }
+  .label {
+    @apply text-[11px] font-medium tracking-[0.18em] text-muted uppercase;
+  }
+
+  .alert-error {
+    @apply border border-danger/30 bg-danger-soft px-3 py-2 text-sm text-danger;
+  }
+  .alert-success {
+    @apply border border-success/30 bg-success-soft px-3 py-2 text-sm text-success;
+  }
+  .badge {
+    @apply inline-block border border-gold/40 bg-gold-soft px-1.5 py-0.5 text-[10px] font-medium tracking-[0.12em] text-gold uppercase;
+  }
+
+  /* 좁은 화면에서는 표가 찌그러지지 않고 가로로 스크롤된다 (감싸는 .card에 overflow-x-auto) */
+  .table {
+    @apply w-full min-w-[560px] text-sm;
+  }
+  .table thead {
+    @apply border-b border-line text-[11px] tracking-[0.15em] text-muted uppercase;
+  }
+  .table th {
+    @apply px-4 py-3 font-medium;
+  }
+  .table td {
+    @apply px-4 py-4;
+  }
+  .table tbody tr {
+    @apply border-t border-line first:border-t-0 hover:bg-subtle/60;
+  }
+}

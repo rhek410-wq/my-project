@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+/* 심플 테마: 무채색 + 얇은 테두리. 색은 모두 이 파일에서만 정한다.
+   시스템이 다크 모드면 아래 @media 블록에서 같은 이름의 값을 덮어쓴다. */
+@theme {
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo",
+    "Noto Sans KR", sans-serif;
+
+  --color-ink: #18181b;        /* 기본 글자 */
+  --color-muted: #71717a;      /* 보조 글자 */
+  --color-line: #e4e4e7;       /* 테두리·구분선 */
+  --color-canvas: #fafafa;       /* 페이지 배경 */
+  --color-surface: #ffffff;    /* 카드·입력칸 바탕 */
+  --color-subtle: #f4f4f5;     /* 표 머리·hover 바탕 */
+  --color-primary: #18181b;    /* 주요 버튼 */
+  --color-primary-hover: #3f3f46;
+  --color-on-primary: #ffffff;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fef2f2;
+  --color-success: #15803d;
+  --color-success-soft: #f0fdf4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --color-ink: #f4f4f5;
+    --color-muted: #a1a1aa;
+    --color-line: #27272a;
+    --color-canvas: #09090b;
+    --color-surface: #18181b;
+    --color-subtle: #27272a;
+    --color-primary: #fafafa;
+    --color-primary-hover: #d4d4d8;
+    --color-on-primary: #18181b;
+    --color-danger: #f87171;
+    --color-danger-soft: #2a1414;
+    --color-success: #4ade80;
+    --color-success-soft: #0f2416;
+  }
+}
+
+body {
+  @apply bg-canvas text-ink antialiased;
+}
+
+@layer components {
+  .card {
+    @apply rounded-lg border border-line bg-surface p-6;
+  }
+  .page-title {
+    @apply text-xl font-semibold tracking-tight;
+  }
+  .muted {
+    @apply text-muted;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-1 rounded-md border px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors
+      disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-sm {
+    @apply px-2.5 py-1 text-xs;
+  }
+  .btn-primary {
+    @apply border-primary bg-primary text-on-primary hover:border-primary-hover hover:bg-primary-hover;
+  }
+  .btn-secondary {
+    @apply border-line bg-surface text-ink hover:bg-subtle;
+  }
+  .btn-danger {
+    @apply border-line bg-surface text-danger hover:bg-danger-soft;
+  }
+
+  .input {
+    @apply w-full rounded-md border border-line bg-surface px-3 py-2 text-sm outline-none transition-colors
+      placeholder:text-muted/70 focus:border-ink;
+  }
+  .label {
+    @apply text-sm font-medium;
+  }
+
+  .alert-error {
+    @apply rounded-md border border-danger/30 bg-danger-soft px-3 py-2 text-sm text-danger;
+  }
+  .alert-success {
+    @apply rounded-md border border-success/30 bg-success-soft px-3 py-2 text-sm text-success;
+  }
+  .badge {
+    @apply inline-block rounded border border-line bg-subtle px-1.5 py-0.5 text-xs font-medium text-muted;
+  }
+
+  /* 좁은 화면에서는 표가 찌그러지지 않고 가로로 스크롤된다 (감싸는 .card에 overflow-x-auto) */
+  .table {
+    @apply w-full min-w-[560px] text-sm;
+  }
+  .table thead {
+    @apply border-b border-line bg-subtle text-xs text-muted;
+  }
+  .table th {
+    @apply px-3 py-2.5 font-medium;
+  }
+  .table td {
+    @apply px-3 py-3;
+  }
+  .table tbody tr {
+    @apply border-t border-line first:border-t-0 hover:bg-subtle/60;
+  }
+}

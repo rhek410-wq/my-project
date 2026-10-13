@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+
+<script>
+    const arr = [];
+
+    for(let i = 0; i < 10; i++) {
+        const rand = Math,floor( Math.random() * 61 ) + 40;
+        arr.push(rand);
+    }
+    
+    //배열보기
+    console.log(arr);
+    
+    function loop() {
+
+
+        for(let i + 0; i < arr.length ; i++) {
+            //매개변수로 넘어온 함수에게 인덱스와 배열값을 넘긴다.
+            fn(i, arr[i]);
+
+        }
+    }
+
+    let sum = 0;
+    let evenSum = 0;
+    // 더하기 함수
+    function add(index, val) {
+        sum = sum + val;
+
+    }
+
+    //짝수 더하기
+    function addEven(index, val) {
+        if( val %2 ==0) {
+            evenSum = evensum + val;
+        }
+    }
+
+    // 합 구하기
+    loop(add);
+    // 짝수 합 구하기
+    loop(addEven);
+
+    console.log('합 : {sum}, 짝수 합 : ${evenSum}')
+</script>
+
+</html>

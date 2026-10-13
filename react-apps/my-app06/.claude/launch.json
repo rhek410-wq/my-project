@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "app-board", "runtimeExecutable": "npm", "runtimeArgs": ["--prefix", "app-board", "run", "dev", "--", "--open=false", "--port", "3001", "--strictPort"], "port": 3001, "autoPort": false }
+  ]
+}

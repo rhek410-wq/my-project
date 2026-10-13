@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise 연습</title>
+</head>
+<body>
+
+<script>
+function orderCoffee(menu) {
+    return new Promise((resolve, reject) => {
+        console.log(`${menu} 주문 접수`);
+
+        // 정해진 시간 후에 실행해라
+        // setTimeout(fn, 시간(m/s)); 해당 시간이 지나면 함수를 실행
+        setTimeout(
+            function() {
+                if (menu === "아메리카노") {
+                    resolve(`${menu} 나왔습니다 ☕`);
+                } else {
+                    reject(new Error(`${menu}는 품절입니다`));
+                }
+            },
+            2000); // 커피 만드는 데 2초
+    });
+}
+
+console.log('시작');
+
+orderCoffee('아메리카노')
+.then(function(result) {
+    console.log(`성공 : ${result}`);
+}).catch(function(error) {
+    console.log(`실패 : ${error.message}`);
+});
+
+console.log('주문끝');
+</script>
+
+</body>
+</html>
+
